@@ -7,7 +7,7 @@ erDiagram
         INT64 order_date_key FK
         INT64 order_id
         STRING order_status
-        STRING currency
+        STRING currency FK
         INT64 quantity
         NUMERIC unit_price
         NUMERIC extended_amount
@@ -71,4 +71,4 @@ erDiagram
     dim_customer ||--o{ fact_order_items : "customer_sk"
     dim_product ||--o{ fact_order_items : "product_sk"
     dim_date ||--o{ fact_order_items : "order_date_key"
-    dim_date ||--o{ dim_currency_rate : "rate_date / full_date (Logical)"
+    dim_currency_rate ||--o{ fact_order_items : "base_currency"
