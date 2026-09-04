@@ -1,0 +1,74 @@
+erDiagram
+    %% Fact Table
+    fact_order_items {
+        INT64 order_item_id PK
+        INT64 customer_sk FK
+        INT64 product_sk FK
+        INT64 order_date_key FK
+        INT64 order_id
+        STRING order_status
+        STRING currency
+        INT64 quantity
+        NUMERIC unit_price
+        NUMERIC extended_amount
+        TIMESTAMP created_at
+    }
+
+    %% Dimension Tables
+    dim_customer {
+        INT64 customer_sk PK
+        INT64 customer_id
+        STRING name
+        STRING email
+        STRING country
+        DATETIME registration_date
+        TIMESTAMP valid_from
+        TIMESTAMP valid_to
+        BOOL is_current
+        STRING row_hash
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+    }
+
+    dim_product {
+        INT64 product_sk PK
+        INT64 product_id
+        STRING name
+        STRING category
+        STRING description
+        NUMERIC base_price
+        STRING base_currency
+        TIMESTAMP valid_from
+        TIMESTAMP valid_to
+        BOOL is_current
+        STRING row_hash
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+    }
+
+    dim_date {
+        INT64 date_key PK
+        DATE full_date
+        INT64 year
+        INT64 quarter
+        INT64 month
+        STRING month_name
+        INT64 day_of_month
+        STRING day_of_week_name
+        BOOL is_weekend
+    }
+
+    dim_currency_rate {
+        INT64 currency_rate_sk PK
+        DATE rate_date
+        STRING base_currency
+        FLOAT64 usd_rate
+        FLOAT64 eur_rate
+        FLOAT64 gbp_rate
+    }
+
+    %% Relationships (Star Schema)
+    dim_customer ||--o{ fact_order_items : "customer_sk"
+    dim_product ||--o{ fact_order_items : "product_sk"
+    dim_date ||--o{ fact_order_items : "order_date_key"
+    dim_date ||--o{ dim_currency_rate : "rate_date / full_date (Logical)"
