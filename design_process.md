@@ -76,6 +76,7 @@ To maintain a historical record of changes over time, all core dimensions utiliz
 * **`dim_customer`** – Captures point-in-time customer profile and attribute history.
 * **`dim_products`** – Tracks product attribute updates and pricing revisions over time.
 * **`dim_date`** – Standard calendar dimension supporting date-based rollups and temporal aggregations.
+* **`dim_currency_rate`** – It stores historical exchange rates to convert transaction values between different currencies.
 
 ### DDL Scripts
 * [create_dimensional_tables_ddl.sql](layers/gold/create_dimensional_tables_ddl.sql) – DDL definitions for instantiating the Gold layer dimensional schema.
